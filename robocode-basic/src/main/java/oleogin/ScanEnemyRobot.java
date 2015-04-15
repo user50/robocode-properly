@@ -22,18 +22,23 @@ public class ScanEnemyRobot extends AdvancedRobot {
     @Override
     public void run() {
 
-        turnRadarLeftRadians(100);
+        turnRadarLeftRadians(6);
 
         while (!stop)
         {
-            Vector radarDirection = new Vector(sin(getRadarHeadingRadians()), cos(getRadarHeadingRadians()));
-            Vector myDirection = new Vector(sin(getHeadingRadians()), cos(getHeadingRadians()));
+            if (lastScannedEnemy != null)
+            {
+                Vector radarDirection = new Vector(sin(getRadarHeadingRadians()), cos(getRadarHeadingRadians()));
+                Vector myDirection = new Vector(sin(getHeadingRadians()), cos(getHeadingRadians()));
 
-            Vector enemyDirection = rotate(myDirection, -lastScannedEnemy.getBearingRadians());
+                Vector enemyDirection = rotate(myDirection, -lastScannedEnemy.getBearingRadians());
 
-            Double radarRotateAngle = getAngleBetween(radarDirection, enemyDirection);
+                Double radarRotateAngle = getAngleBetween(radarDirection, enemyDirection);
 
-            setTurnRadarLeftRadians(radarRotateAngle);
+                setTurnRadarLeftRadians(radarRotateAngle + Math.signum(radarRotateAngle) * 10 * Math.PI / 180);
+            }
+
+            execute();
         }
     }
 
