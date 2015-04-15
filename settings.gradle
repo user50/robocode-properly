@@ -1,0 +1,4 @@
+rootProject.name = 'robocode-properly'
+
+include 'robocode-simulator'
+include 'robocode-basic'
