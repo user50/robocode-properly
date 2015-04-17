@@ -5,5 +5,8 @@ package oleogin.domain;
  */
 public enum RobocodeStateParameter {
     gunHearing,
-    radarHearing
+    radarHearing,
+    agentHearing,
+    enemyBearing
+
 }

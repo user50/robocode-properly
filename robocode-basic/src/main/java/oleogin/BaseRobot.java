@@ -12,20 +12,26 @@ import java.util.Map;
 import static oleogin.domain.RobocodeActionParameter.rotateGun;
 import static oleogin.domain.RobocodeActionParameter.rotateRadar;
 import static oleogin.domain.RobocodeActionParameter.shotPower;
+import static oleogin.domain.RobocodeStateParameter.*;
 
 /**
  * Created by user50 on 09.04.2015.
  */
 public class BaseRobot extends AdvancedRobot {
 
-    RobocodeBrain brain;
+    RobocodeBrain brain = new RadarController();
 
     private boolean stop = false;
 
     StateAggregator stateAggregator = new StateAggregator();
 
+    private ScannedRobotEvent lastScannedEnemy;
+
     @Override
     public void run() {
+
+        turnRadarLeftRadians(6);
+
         while (!stop)
         {
             RobocodeState state = getState();
@@ -40,17 +46,24 @@ public class BaseRobot extends AdvancedRobot {
 
     private void applyActions(RobocodeAction action)
     {
-        setTurnGunLeftRadians(action.getAction(rotateGun));
-        setTurnRadarLeftRadians(action.getAction(rotateRadar));
-        fire(action.getAction(shotPower));
+        for (RobocodeActionParameter actionParameter : RobocodeActionParameter.values()) {
+            if (action.getAction(actionParameter) != null)
+                actionParameter.apply(action.getAction(actionParameter), this);
+        }
     }
 
     private RobocodeState getState()
     {
         Map<RobocodeStateParameter, Double> stateParameters = new HashMap<RobocodeStateParameter, Double>();
 
-        stateParameters.put(RobocodeStateParameter.gunHearing, getGunHeadingRadians() );
-        stateParameters.put(RobocodeStateParameter.radarHearing, getRadarHeadingRadians() );
+        stateParameters.put(gunHearing, getGunHeadingRadians() );
+        stateParameters.put(radarHearing, getRadarHeadingRadians() );
+        stateParameters.put(agentHearing, getHeadingRadians() );
+
+        if (lastScannedEnemy!=null)
+        {
+            stateParameters.put(enemyBearing, lastScannedEnemy.getBearingRadians() );
+        }
 
         return new RobocodeState(stateParameters);
     }
@@ -61,12 +74,7 @@ public class BaseRobot extends AdvancedRobot {
     }
 
     @Override
-    public void onRoundEnded(RoundEndedEvent event) {
-
-    }
-
-    @Override
-    public void onBulletHit(BulletHitEvent event) {
-
+    public void onScannedRobot(ScannedRobotEvent event) {
+        lastScannedEnemy = event;
     }
 }

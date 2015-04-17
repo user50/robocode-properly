@@ -1,5 +1,7 @@
 package oleogin.domain;
 
+import oleogin.BaseRobot;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,8 +12,17 @@ public class RobocodeAction {
 
     Map<RobocodeActionParameter,Double> actions = new HashMap<RobocodeActionParameter, Double>();
 
-    public double getAction(RobocodeActionParameter actionParameter)
+    public RobocodeAction(Map<RobocodeActionParameter, Double> actions) {
+        this.actions = actions;
+    }
+
+    public Double getAction(RobocodeActionParameter actionParameter)
     {
         return actions.get(actionParameter);
+    }
+
+    public void apply(BaseRobot baseRobot)
+    {
+
     }
 }

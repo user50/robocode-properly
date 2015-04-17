@@ -13,4 +13,9 @@ public class RobocodeState {
     public RobocodeState(Map<RobocodeStateParameter, Double> stateParameters) {
         this.stateParameters = stateParameters;
     }
+
+    public Double getState(RobocodeStateParameter parameter)
+    {
+        return stateParameters.get(parameter);
+    }
 }
