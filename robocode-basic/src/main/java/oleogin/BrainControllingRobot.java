@@ -17,7 +17,7 @@ import static oleogin.domain.RobocodeStateParameter.*;
 /**
  * Created by user50 on 09.04.2015.
  */
-public class BaseRobot extends AdvancedRobot {
+public class BrainControllingRobot extends AdvancedRobot {
 
     RobocodeBrain brain = new RadarController();
 

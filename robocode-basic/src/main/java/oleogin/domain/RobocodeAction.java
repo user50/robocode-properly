@@ -1,6 +1,6 @@
 package oleogin.domain;
 
-import oleogin.BaseRobot;
+import oleogin.BrainControllingRobot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +21,7 @@ public class RobocodeAction {
         return actions.get(actionParameter);
     }
 
-    public void apply(BaseRobot baseRobot)
+    public void apply(BrainControllingRobot brainControllingRobot)
     {
 
     }

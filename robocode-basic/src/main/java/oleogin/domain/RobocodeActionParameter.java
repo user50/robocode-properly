@@ -1,6 +1,6 @@
 package oleogin.domain;
 
-import oleogin.BaseRobot;
+import oleogin.BrainControllingRobot;
 
 /**
  * Created by user50 on 09.04.2015.
@@ -8,22 +8,22 @@ import oleogin.BaseRobot;
 public enum RobocodeActionParameter {
     rotateGun {
         @Override
-        public void apply(Double value, BaseRobot baseRobot) {
-            baseRobot.turnGunLeftRadians(value);
+        public void apply(Double value, BrainControllingRobot brainControllingRobot) {
+            brainControllingRobot.turnGunLeftRadians(value);
         }
     },
     rotateRadar {
         @Override
-        public void apply(Double value, BaseRobot baseRobot) {
-            baseRobot.turnRadarLeftRadians(value);
+        public void apply(Double value, BrainControllingRobot brainControllingRobot) {
+            brainControllingRobot.turnRadarLeftRadians(value);
         }
     },
     shotPower {
         @Override
-        public void apply(Double value, BaseRobot baseRobot) {
-            baseRobot.fire(value);
+        public void apply(Double value, BrainControllingRobot brainControllingRobot) {
+            brainControllingRobot.fire(value);
         }
     };
 
-    public abstract void apply(Double value, BaseRobot baseRobot);
+    public abstract void apply(Double value, BrainControllingRobot brainControllingRobot);
 }
