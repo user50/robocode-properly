@@ -14,6 +14,7 @@ public class Main {
     public static void main(String[] args) {
         RobocodeEngine engine = new RobocodeEngine(new File("d:\\programs\\robocode"));
 
+
         BattleResult battleResult = new BattleResult();
         engine.addBattleListener(battleResult);
 

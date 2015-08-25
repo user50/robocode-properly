@@ -4,6 +4,8 @@ dependencies {
     dependencies {
         compile fileTree(dir: '../lib', include: ['*.jar'])
         compile project(':mathematic')
+        compile project(':reinforcement')
+        compile project(':regression')
     }
 }
 
@@ -11,6 +13,12 @@ task fatJar(type: Jar) {
     baseName = project.name + '-all'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
-    buildDir = 'd:/projects/'
+}
+
+task copyJarToRobocode(dependsOn: fatJar) {
+    copy {
+        from 'build\\libs\\robocode-basic-all-1.0.jar'
+        into "d:\\games\\robocode\\robots"
+    }
 
 }
